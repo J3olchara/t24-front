@@ -23,11 +23,11 @@ function ChatForm() {
         }
     
         try {
-            const response = await fetch('/chat', {
+            const response = await fetch('http://localhost:8080/chat', {
                 method: 'POST',
                 body: data
             });
-    
+            console.log(response)
             if (!response.ok) {
                 throw new Error('Ошибка при отправке данных');
             }

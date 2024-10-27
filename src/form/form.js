@@ -3,6 +3,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
 
+function onChangeAudio(e) {
+    if (e.target.files.length > 0) {
+        // Получаем первый выбранный файл
+        const file = e.target.files[0];
+        
+        // Выводим информацию о файле в консоль
+        console.log('Выбран файл:', file.name);
+        console.log('Размер файла:', file.size);
+        console.log('Тип файла:', file.type);
+    } else {
+        console.log('Файл не выбран.');
+    }
+}
+
 function ChatForm() {
     const [text, setText] = React.useState("");
     const [file, setFile] = React.useState("");
@@ -27,7 +41,6 @@ function ChatForm() {
                 method: 'POST',
                 body: data
             });
-            console.log(response)
             if (!response.ok) {
                 throw new Error('Ошибка при отправке данных');
             }
@@ -70,7 +83,15 @@ function ChatForm() {
                 </Form.Group>
 
                 <Form.Group controlId="formFile" className="mt-3">
-                <Form.Control type="file" value={file} onChange={(e) => setFile(e.target.files[0])}/>
+                <Form.Control type="file" onChange={(e) => {
+                    if (e.target.files.length > 0) {
+                        // Получаем первый выбранный файл
+                        const file = e.target.files[0];
+                        setFile(file)
+                    } else {
+                        console.log('Файл не выбран.');
+                    }
+                }}/>
                 </Form.Group>
 
                 <Button variant="primary" type="submit" className="mt-3">

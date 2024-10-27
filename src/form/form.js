@@ -38,12 +38,27 @@ function ChatForm() {
                 voice_src: resp_data.voice,
                 hidden: false,
             })
+            setAnswerData({
+                answer_text: resp_data.short_text,
+                voice_src: resp_data.voice,
+                hidden: false,
+            })
             
         } catch (error) {
             console.error('Ошибка:', error);
         }
         
     }
+    // const handleTextChange = useCallback((e) => {
+    //     setText(e.target.value);
+    //     adjustTextareaHeight(e.target);
+    // }, []);
+
+    // const adjustTextareaHeight = (textarea) => {
+    //     textarea.style.height = 'auto';  // Сбрасываем предыдущую высоту
+    //     textarea.style.height = textarea.scrollHeight + "px";  // Устанавливаем новую высоту
+    // };
+
     return (
         <Container>
         <Row className="justify-content-center mt-5">
@@ -51,7 +66,7 @@ function ChatForm() {
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formText">
                 <Form.Label>Статья</Form.Label>
-                <Form.Control as="textarea" type="text" placeholder="Введите текст" value={text} onChange={(e) => setText(e.target.value)}/>
+                <Form.Control as="textarea" height="auto" type="text" placeholder="Введите текст" value={text} onChange={(e) => setText(e.target.value)}/>
                 </Form.Group>
 
                 <Form.Group controlId="formFile" className="mt-3">
@@ -72,33 +87,62 @@ function ChatForm() {
 
 class Answer extends React.Component {
     render() {
-        console.log(this.props)
         if (this.props.hidden) {
-            return
+            return null;  // Возвращаем null вместо undefined
         }
+
         return (
             <div id="hidden-answer-component" className="p-3">
                 <Form.Group controlId="formReadOnlyTextArea">
-                <Form.Label>Answer</Form.Label>
-                <Form.Control 
-                    id="answer-textarea"
-                    as="textarea" 
-                    rows={3} 
-                    readOnly 
-                    value={this.props.answer_text} 
-                />
+                    <Form.Label>Answer</Form.Label>
+                    <Form.Control 
+                        id="answer-textarea"
+                        as="textarea" 
+                        height="auto"
+                        rows={3} 
+                        readOnly 
+                        value={this.props.answer_text} 
+                    />
                 </Form.Group>
-        
-                <div className="mt-3">
-                <audio controls>
-                    <source id="answer-audio" src={this.props.voice_src} type="audio/wav" />
-                    Ваш браузер не поддерживает элемент audio.
-                </audio>
-                </div>
+            
+                <Audio voice_src={this.props.voice_src}></Audio>
             </div>
-        )
+        );
     }
 }
-  
+
+class Audio extends React.Component {
+    constructor(props) {
+        super(props);
+        this.audioRef = React.createRef();
+    }
+
+    componentDidUpdate(prevProps) {
+        // Проверяем, изменился ли voice_src
+        if (prevProps.voice_src !== this.props.voice_src) {
+            // Перезагружаем аудио-элемент
+            if (this.audioRef.current) {
+                this.audioRef.current.load(); // Загружаем новый источник
+                this.audioRef.current.play(); // (опционально) Автоматически воспроизводим аудио
+            }
+        }
+    }
+
+    render() {
+        if (!this.props.voice_src) {
+            return null;
+        }
+
+        return (
+            <div className="mt-3">
+                <audio controls ref={this.audioRef}>
+                    <source src={this.props.voice_src} type="audio/wav" />
+                    Ваш браузер не поддерживает элемент audio.
+                </audio>
+            </div>
+        );
+    }
+}
+
 
 export default ChatForm;

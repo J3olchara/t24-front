@@ -7,4 +7,4 @@ RUN npm fund
 RUN npm install
 RUN npm install -g serve
 RUN npm run build
-RUN serve -s build -l 0.0.0.0:80
+RUN serve -s build -l 80

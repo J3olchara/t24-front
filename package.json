@@ -1,9 +1,6 @@
 {
   "name": "t24front",
   "proxy": "http://localhost:8080",
-  "devServer": {
-    "allowedHosts": "all"
-  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {

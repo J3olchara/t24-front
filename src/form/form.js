@@ -3,20 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
 
-function onChangeAudio(e) {
-    if (e.target.files.length > 0) {
-        // Получаем первый выбранный файл
-        const file = e.target.files[0];
-        
-        // Выводим информацию о файле в консоль
-        console.log('Выбран файл:', file.name);
-        console.log('Размер файла:', file.size);
-        console.log('Тип файла:', file.type);
-    } else {
-        console.log('Файл не выбран.');
-    }
-}
-
 function ChatForm() {
     const [text, setText] = React.useState("");
     const [file, setFile] = React.useState("");

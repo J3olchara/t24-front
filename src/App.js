@@ -12,4 +12,4 @@ function App() {
 }
 
 export default App;
-export const backend = "http://158.160.46.143:8080";
+export const backend = "http://158.160.46.144:8080";

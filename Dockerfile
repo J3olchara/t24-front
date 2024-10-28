@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 COPY package*.json ./
 RUN npm install
-RUN npm i react-scripts
 RUN npm run build
+RUN serve -s build
 
 CMD ["npm", "start"]

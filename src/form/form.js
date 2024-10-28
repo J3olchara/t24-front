@@ -1,6 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
+import { backend } from "../App";
 
 
 function ChatForm() {
@@ -23,7 +24,7 @@ function ChatForm() {
         }
     
         try {
-            const response = await fetch('/chat', {
+            const response = await fetch(backend + '/chat', {
                 method: 'POST',
                 body: data
             });

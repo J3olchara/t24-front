@@ -9,5 +9,6 @@ RUN npm run build
 
 FROM node:20-alpine AS starter
 COPY --from=builder /app/build /app/build
+WORKDIR /app/build
 RUN npm install -g serve
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-s", "."]

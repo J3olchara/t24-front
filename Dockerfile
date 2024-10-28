@@ -5,6 +5,6 @@ COPY . .
 COPY package*.json ./
 RUN npm fund
 RUN npm install
-RUN npm install -g serve
+RUN npm install -g serve -l 80
 RUN npm run build
 RUN serve -s build

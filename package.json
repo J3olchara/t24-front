@@ -1,6 +1,5 @@
 {
   "name": "t24front",
-  "proxy": "http://158.160.46.143:8080",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

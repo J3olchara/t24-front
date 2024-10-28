@@ -3,8 +3,8 @@ WORKDIR /app
 
 COPY . .
 COPY package*.json ./
+RUN npm fund
 RUN npm install
+RUN npm install -g serve
 RUN npm run build
 RUN serve -s build
-
-CMD ["npm", "start"]

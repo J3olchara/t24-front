@@ -2,6 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 import { backend } from "../App";
+import axios from "axios";
 
 
 function ChatForm() {
@@ -15,19 +16,18 @@ function ChatForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = new FormData(); 
-        if (text != null)  {
-            data.append('text', text);
+        let body = {}; 
+        if (text != "")  {
+            body['text'] = text
         }
-        if (file != null) {
-            data.append('input_file', file);
+        if (file != "") {
+            body['input_file'] = file
         }
     
         try {
-            const response = await fetch(backend + '/chat', {
-                method: 'POST',
-                body: data
-            });
+            const response = await axios.post(backend + '/chat', 
+                body
+            );
             if (!response.ok) {
                 throw new Error('Ошибка при отправке данных');
             }

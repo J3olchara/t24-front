@@ -23,7 +23,7 @@ function ChatForm() {
         }
     
         try {
-            const response = await fetch('http://localhost:8080/chat', {
+            const response = await fetch('/chat', {
                 method: 'POST',
                 body: data
             });

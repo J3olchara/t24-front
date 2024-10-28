@@ -3,7 +3,6 @@ WORKDIR /app
 
 COPY . .
 COPY package*.json ./
-RUN npm fund
 RUN npm install
 RUN npm run build
 
